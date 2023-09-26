@@ -14,7 +14,7 @@ else:
   raise ValueError("Database setting failed")
 
 # create SQL engine
-engine = create_engine(SQLALCHEMY_DATABASE_URL, encoding='utf-8', echo=True)
+engine = create_engine(DATABASE_URL, encoding='utf-8', echo=True)
 
 # create SQL communication session and bind
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
