@@ -4,7 +4,8 @@ Created on Tue Aug  8 11:40:32 2023
 
 @author: a2793
 """
-from db.client import DatabaseConnector
+from sqlalchemy.orm import Session
+from .models.model import *
 from sqlalchemy import text
 import pandas as pd
 import logging
