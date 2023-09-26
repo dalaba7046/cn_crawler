@@ -34,6 +34,8 @@ class DatabaseConnector:
         self.engine = create_engine(f"mysql+pymysql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_database}")
         self.Session = sessionmaker(bind=self.engine)
         self.Base = declarative_base()
+        self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+        
     def connect(self):
         try:
             # session = self.Session()
