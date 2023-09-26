@@ -11,7 +11,7 @@ if flag :
   DATABASE_URL = f"mysql://{os.getenv('MYSQL_DATA_USER')}:{os.getenv('MYSQL_DATA_PASSWORD')}@{os.getenv('MYSQL_DATA_HOST')}:{os.getenv('MYSQL_DATA_PORT')}/{os.getenv('MYSQL_DATA_DATABASE')}"
   logger.info("Database setting success")
 else:
-  raise "Database setting faield"
+  raise ValueError("Database setting failed")
 
 # create SQL engine
 engine = create_engine(SQLALCHEMY_DATABASE_URL, encoding='utf-8', echo=True)
