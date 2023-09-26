@@ -1,9 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
 
-SQLALCHEMY_DATABASE_URL = r"sqlite:///./fastDB.db"
-
+load_dotenv()
 # create SQL engine
 engine = create_engine(SQLALCHEMY_DATABASE_URL, encoding='utf-8', echo=True)
 
