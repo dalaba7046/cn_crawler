@@ -1,17 +1,13 @@
 from typing import Union
 
 from fastapi import FastAPI
-from db.client import DatabaseConnector
+from app.api.dpms_api import router as bugtracing_router
+from app.api.api_buying import router as buying_router
+
 app = FastAPI()
 
+# 包含不同功能的 API 文件路由
+app.include_router(bugtracing_router, prefix="/bugtracing", tags=["bugtracing"])
+app.include_router(buying_router, prefix="/buying", tags=["buying"])
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
 
-
-@app.get("/api/v1/items/")
-def read_items(item_id: int, q: Union[str, None] = None):
-    
-    
-    return {"item_id": item_id, "q": q}
