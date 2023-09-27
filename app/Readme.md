@@ -17,7 +17,7 @@ ___________________________
    * Method: "GET"
    * Status code: 200
 ___________________________
-3. * 路徑: /v1/items
+3. * 路徑: /v1/add_item
    * 功能: 新增產品
    * Method: "POST" or "PUT"
    * Status code: 200
