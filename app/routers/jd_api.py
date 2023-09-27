@@ -2,9 +2,17 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from config.database import SessionLocal
 from services.jd.item_crud import *
-from schemas.jd_schema import Items
+from schemas import jd_schema
 from typing import Any
+
 router = APIRouter()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 # #新增item
 # @router.post("/add_item", response_model=Items)
@@ -32,8 +40,10 @@ router = APIRouter()
 
 #     return {"message": "Item created successfully", "sku_id": new_item.SKU_ID}
 
+
+
 #查詢所有SKU
-@router.get('/items',response_model=Items)
-def get_all_item(db:Session):
+@router.get('/items',response_model=list[jd_schema.Items])
+def get_all_item( db: Session = Depends(get_db)):
     items = get_items(db)
     return items

@@ -58,7 +58,8 @@ class Items(BaseModel):
     SKU_ID: str
     SITE_ID: str
     COLLECT_STATUS: str
-
+    class Config:
+        orm_mode = True
 
 # class ItemsCreate(ItemsBase):
 #     pass

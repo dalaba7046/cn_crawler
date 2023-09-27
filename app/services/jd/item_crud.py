@@ -5,7 +5,7 @@ Created on Tue Aug  8 11:40:32 2023
 @author: a2793
 """
 from sqlalchemy.orm import Session
-from models.jd_model import *
+from models.jd_model import Items
 from sqlalchemy import text
 import pandas as pd
 import logging
@@ -31,9 +31,6 @@ def get_item(db: Session, sku_id: str):
 
 
 def get_items(db: Session):
-    """
-    獲取所有Item紀錄
-    """
     return db.query(Items).all()
 
 

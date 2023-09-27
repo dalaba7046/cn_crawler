@@ -45,7 +45,7 @@ class Review(Base):
 
 
 class Items(Base):
-    __tablename__='df_sku_list'
+    __tablename__='def_sku_list'
     SKU_ID = Column(VARCHAR(100),nullable=False,primary_key=True)
     SITE_ID = Column(VARCHAR(100))
     COLLECT_STATUS = Column(VARCHAR(100))
