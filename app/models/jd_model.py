@@ -5,7 +5,7 @@ Created on Mon Aug  7 16:26:41 2023
 @author: a2793
 """
 from sqlalchemy import Date,VARCHAR, Column, Integer, String, DateTime, Text, Index
-from db.database import Base
+from cfg.database import Base
 from datetime import datetime
 
 class Rating(Base):
