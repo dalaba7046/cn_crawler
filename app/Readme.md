@@ -1,3 +1,6 @@
+# 架構參考
+https://camillovisini.com/article/abstracting-fastapi-services/
+
 # 目標
 
 練習使用FastAPI建立一個京東產品評論API server，將依照以下功能規劃進行開發。
