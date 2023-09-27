@@ -1,5 +1,4 @@
 from typing import Union
-
 from fastapi import FastAPI
 from routers.jd_api import router as jd_router
 

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
+
 # Rating model
 
 
@@ -53,19 +54,19 @@ class Review(ReviewBase):
 
 # Items model
 
-class ItemsBase(BaseModel):
+class Items(BaseModel):
     SKU_ID: str
     SITE_ID: str
     COLLECT_STATUS: str
 
 
-class ItemsCreate(ItemsBase):
-    pass
+# class ItemsCreate(ItemsBase):
+#     pass
 
 
-class Items(ItemsBase):
-    class Config:
-        orm_mode = True
+# class Items(ItemsBase):
+#     class Config:
+#         orm_mode = True
 
 
 class ReviewIdBase(BaseModel):
