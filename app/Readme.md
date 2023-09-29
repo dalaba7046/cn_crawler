@@ -6,7 +6,7 @@ https://camillovisini.com/article/abstracting-fastapi-services/
 
 # 目標
 
-練習使用FastAPI建立一個京東產品評論API server，將依照以下功能規劃進行開發。
+練習使用FastAPI建立一個結合MYSQL DB的API server，將依照以下功能規劃進行開發。
 
 ## 專案相關功能規劃
 
