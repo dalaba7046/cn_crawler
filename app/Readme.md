@@ -8,7 +8,7 @@ https://camillovisini.com/article/abstracting-fastapi-services/
 
 練習使用FastAPI建立一個京東產品評論API server，將依照以下功能規劃進行開發。
 
-## 產品相關功能規劃
+## 專案相關功能規劃
 
 1. * 路徑: /v1/items
    * 功能: 回傳資料庫中所有產品ID
