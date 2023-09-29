@@ -47,9 +47,10 @@ class Review(Base):
 class Items(Base):
     __tablename__='def_sku_list'
     SKU_ID = Column(VARCHAR(100),nullable=False,primary_key=True)
-    SITE_ID = Column(VARCHAR(100))
-    COLLECT_STATUS = Column(VARCHAR(100))
-
+    SITE_ID = Column(VARCHAR(100),nullable=False)
+    COLLECT_STATUS = Column(VARCHAR(100),nullable=False,default='NEW')
+    IF_COLLECT = Column(VARCHAR(1),nullable=False,default='Y')
+    IMPORT_DATE = Column(DateTime,nullable=False, default=datetime.utcnow)
     def __str__(self):
         return f"Item Object:<SKU_ID: {self.SKU_ID} SITE_ID: {self.SITE_ID}>"
 

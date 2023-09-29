@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from config.database import SessionLocal
 from services.jd.item_crud import *
@@ -14,9 +14,24 @@ def get_db():
     finally:
         db.close()
 
-# #新增item
-# @router.post("/add_item", response_model=Items)
-# def create_item(sku_id: str, db: Session):
+
+#查詢所有SKU
+@router.get('/items', response_model=list[jd_schema.ItemsBase], status_code=status.HTTP_200_OK)
+def get_all_item( db: Session = Depends(get_db)):
+    items = get_items(db)
+    return items
+
+#查詢SKU
+@router.get('/item/{item_id}',response_model=jd_schema.ItemsBase, status_code=status.HTTP_200_OK,response_model_exclude_unset=True)
+def get_item_review(item_id:str,db: Session = Depends(get_db)):
+    item = get_item(db,item_id)
+    return item
+    
+    
+
+#新增item
+@router.post("/add_item/", response_model=jd_schema.ItemsBase, status_code=status.HTTP_201_CREATED)
+def create_item(item_id: str,site_id: str, db: Session = Depends(get_db)):
 #     """
 #     建立一個新的Item記錄
 #      Args:
@@ -26,24 +41,10 @@ def get_db():
 #          dict: 包含創建結果的回應字典
 #     """
 #     # 檢查是否已存在相同 SKU_ID 的 Item，如果存在則回傳錯誤
-#     existing_item = db.query(Items).filter(Items.SKU_ID == sku_id).first()
-#     if existing_item:
-#         raise HTTPException(
-#             status_code=400, detail="Item with this SKU_ID already exists")
-
-#     # 建立新的 Item 記錄
-#     # 設定預設的 COLLECT_STATUS 為 'NEW'
-#     new_item = Items(SKU_ID=sku_id, COLLECT_STATUS='NEW')
-#     db.add(new_item)
-#     db.commit()
-#     db.refresh(new_item)
-
-#     return {"message": "Item created successfully", "sku_id": new_item.SKU_ID}
-
-
-
-#查詢所有SKU
-@router.get('/items',response_model=list[jd_schema.Items])
-def get_all_item( db: Session = Depends(get_db)):
-    items = get_items(db)
-    return items
+    existing_item = db.query(jd_schema.ItemsBase).filter(jd_schema.ItemsBase.SKU_ID == item_id).first()
+    if existing_item:
+        raise HTTPException(
+            status_code=400, detail="Item with this SKU_ID already exists")
+    create_item(db,item_id,site_id)
+    
+    

@@ -54,20 +54,13 @@ class Review(ReviewBase):
 
 # Items model
 
-class Items(BaseModel):
+class ItemsBase(BaseModel):
     SKU_ID: str
     SITE_ID: str
     COLLECT_STATUS: str
+    IF_COLLECT: str
     class Config:
         orm_mode = True
-
-# class ItemsCreate(ItemsBase):
-#     pass
-
-
-# class Items(ItemsBase):
-#     class Config:
-#         orm_mode = True
 
 
 class ReviewIdBase(BaseModel):

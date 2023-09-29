@@ -5,7 +5,7 @@ pandas==1.4.3
 pysftp==0.2.9
 requests==2.28.1
 openpyxl==3.0.10
-fastapi>=0.68.0,<0.69.0
+fastapi==
 pydantic>=1.8.0,<2.0.0
 uvicorn>=0.15.0,<0.16.0
 sqlalchemy==2.0.2
