@@ -28,23 +28,7 @@ def get_item_review(item_id:str,db: Session = Depends(get_db)):
     return item
     
     
-
 #新增item
-@router.post("/add_item/", response_model=jd_schema.ItemsBase, status_code=status.HTTP_201_CREATED)
-def create_item(item_id: str,site_id: str, db: Session = Depends(get_db)):
-#     """
-#     建立一個新的Item記錄
-#      Args:
-#          sku_id (str): SKU_ID
-#          db (Session, optional): 資料庫會話，預設從依賴中取得
-#      Returns:
-#          dict: 包含創建結果的回應字典
-#     """
-#     # 檢查是否已存在相同 SKU_ID 的 Item，如果存在則回傳錯誤
-    existing_item = db.query(jd_schema.ItemsBase).filter(jd_schema.ItemsBase.SKU_ID == item_id).first()
-    if existing_item:
-        raise HTTPException(
-            status_code=400, detail="Item with this SKU_ID already exists")
-    create_item(db,item_id,site_id)
-    
-    
+@router.post("/add_item/", response_model=dict, status_code=status.HTTP_201_CREATED)
+def create_new_item(item_data: ItemCreate, db: Session = Depends(get_db)):
+    return create_item(db, item_data)

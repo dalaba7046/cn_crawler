@@ -63,6 +63,12 @@ class ItemsBase(BaseModel):
         orm_mode = True
 
 
+class ItemCreate(BaseModel):
+    SKU_ID: str
+    SITE_ID: str
+    class Config:
+        orm_mode = True
+
 class ReviewIdBase(BaseModel):
     SITE_ID: str
     SITE_REVIEW_ID: str

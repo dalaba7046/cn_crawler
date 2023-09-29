@@ -6,28 +6,49 @@ Created on Tue Aug  8 11:40:32 2023
 """
 from sqlalchemy.orm import Session
 from models.jd_model import Items
-from sqlalchemy import text
-import pandas as pd
+from schemas.jd_schema import ItemCreate
 import logging
+from fastapi import HTTPException
 logger = logging.getLogger()
 
 
-def create_item(db: Session, item_data):
+def create_item(db: Session, item_data: ItemCreate):
     """
-    創建一个新的Item紀錄
+    建立一個新的Item記錄
+      Args:
+          sku_id (str): SKU_ID
+          site_id (str): SITE_ID
+          db (Session, optional): 資料庫會話，預設從依賴中取得
+      Returns:
+          dict: 包含創建結果的回應字典
     """
-    item = Items(**item_data)
-    db.add(item)
-    db.commit()
-    db.refresh(item)
-    return item
+    existing_item = db.query(Items).filter(
+        Items.SKU_ID == item_data.SKU_ID).first()
+    if existing_item:
+        raise HTTPException(status_code=400, detail="SKU_ID already exists")
+
+    # 建立新的 Item 記錄
+    new_item = Items(**item_data.dict())
+    try:
+        db.add(new_item)
+        db.commit()
+        db.refresh(new_item)
+        return {"message": "Item created successfully", "sku_id": new_item.SKU_ID}
+    except Exception as e:
+        db.rollback()  # 回滚事务以避免数据损坏
+        logger.error(f'{e}')
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
 
 
 def get_item(db: Session, sku_id: str):
     """
     根據SKU_ID獲取Item紀錄
     """
-    return db.query(Items).filter(Items.SKU_ID == sku_id).first()
+    item = db.query(Items).filter(Items.SKU_ID == sku_id).first()
+    if item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return item
 
 
 def get_items(db: Session):
@@ -40,7 +61,7 @@ def update_item(db: Session, sku_id: str, item_data):
     Args:
         db (Session): 連線
         sku_id (str): SKU_ID，用於確定要更新哪個Item
-        status (str): 更新後的COLLECT_STATUS，可以是 'SUCCESS', 'NEW', 'ERROR', 'PENDING'
+        status (str): 更新後的IF_COLLECT，可以是 'SUCCESS', 'NEW', 'ERROR', 'PENDING'
     Returns:
         bool: 如果成功更新返回True，否則返回False
     """
@@ -48,13 +69,13 @@ def update_item(db: Session, sku_id: str, item_data):
     if item:
         # 根据不同的逻辑设置COLLECT_STATUS
         if status == 'SUCCESS':
-            item.COLLECT_STATUS = 'SUCCESS'
+            item.IF_COLLECT = 'SUCCESS'
         elif status == 'NEW':
-            item.COLLECT_STATUS = 'NEW'
+            item.IF_COLLECT = 'NEW'
         elif status == 'ERROR':
-            item.COLLECT_STATUS = 'ERROR'
+            item.IF_COLLECT = 'ERROR'
         elif status == 'PENDING':
-            item.COLLECT_STATUS = 'PENDING'
+            item.IF_COLLECT = 'PENDING'
         else:
             return False  
 
