@@ -85,15 +85,16 @@ def update_item(db: Session, sku_id: str, item_data):
     return False  
 
 
-#使用ItemDeleteSchema
-def delete_item(db: Session, item_data: ItemDelete):
+def delete_item(db: Session, sku_id: str):
     """
     使用軟删除方式删除Item紀錄，更新COLLECT_STATUS為'N'
     """
-    item = get_item(db, sku_id)
-    if item.IF_COLLECT == 'Y':
-        item.IF_COLLECT = 'N' 
+    item = db.query(Items).filter(Items.SKU_ID == sku_id).first()
+    if item.IF_COLLECT=='Y':
+
+        item.IF_COLLECT = 'N'
         db.commit()
-        db.refresh(item)
-        return item
-    return None
+        return {"message": "Item marked as deleted", "sku_id": sku_id}
+    else:
+
+        raise HTTPException(status_code=404, detail=f"Item with SKU_ID {sku_id} not found")
