@@ -29,6 +29,6 @@ def get_item_review(item_id:str,db: Session = Depends(get_db)):
     
     
 #新增item
-@router.post("/add_item/", response_model=dict, status_code=status.HTTP_201_CREATED)
+@router.post("/item", response_model=dict, status_code=status.HTTP_201_CREATED)
 def create_new_item(item_data: ItemCreate, db: Session = Depends(get_db)):
     return create_item(db, item_data)
