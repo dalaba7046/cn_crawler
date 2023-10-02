@@ -85,14 +85,14 @@ def update_item(db: Session, sku_id: str, item_data):
     return False  
 
 
-#設計錯誤,需新增欄位
-def delete_item(db: Session, sku_id: str):
+#使用ItemDeleteSchema
+def delete_item(db: Session, item_data: ItemDelete):
     """
     使用軟删除方式删除Item紀錄，更新COLLECT_STATUS為'N'
     """
     item = get_item(db, sku_id)
-    if item:
-        item.IF_COLLECT = 'SUCCESS'  
+    if item.IF_COLLECT == 'Y':
+        item.IF_COLLECT = 'N' 
         db.commit()
         db.refresh(item)
         return item
