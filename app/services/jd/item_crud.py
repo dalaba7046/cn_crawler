@@ -76,7 +76,7 @@ def update_item(db: Session, sku_id: str, status):
             item.COLLECT_STATUS = 'ERROR'
         elif status == 'GOING':
             item.COLLECT_STATUS = 'GOING'
-        elif status == 'PENDING'
+        elif status == 'PENDING':
             item.COLLECT_STATUS = 'PENDING'
         else:
             return False  
