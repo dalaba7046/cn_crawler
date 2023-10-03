@@ -55,7 +55,7 @@ def get_items(db: Session):
     return db.query(Items).all()
 
 
-def update_item(db: Session, sku_id: str, item_data):
+def update_item(db: Session, sku_id: str, status):
     """
     更新Item的COLLECT_STATUS
     Args:
@@ -69,13 +69,15 @@ def update_item(db: Session, sku_id: str, item_data):
     if item:
         # 根据不同的逻辑设置COLLECT_STATUS
         if status == 'SUCCESS':
-            item.IF_COLLECT = 'SUCCESS'
+            item.COLLECT_STATUS = 'SUCCESS'
         elif status == 'NEW':
-            item.IF_COLLECT = 'NEW'
+            item.COLLECT_STATUS = 'NEW'
         elif status == 'ERROR':
-            item.IF_COLLECT = 'ERROR'
-        elif status == 'PENDING':
-            item.IF_COLLECT = 'PENDING'
+            item.COLLECT_STATUS = 'ERROR'
+        elif status == 'GOING':
+            item.COLLECT_STATUS = 'GOING'
+        elif status == 'PENDING'
+            item.COLLECT_STATUS = 'PENDING'
         else:
             return False  
 
