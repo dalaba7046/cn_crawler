@@ -4,6 +4,7 @@ from config.database import SessionLocal
 from services.jd.item_crud import *
 from schemas import jd_schema
 from typing import Any
+from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
@@ -27,8 +28,12 @@ def get_item_review(item_id:str,db: Session = Depends(get_db)):
     item = get_item(db,item_id)
     return item
     
-    
 #新增item
 @router.post("/item", response_model=dict, status_code=status.HTTP_201_CREATED)
 def create_new_item(item_data: ItemCreate, db: Session = Depends(get_db)):
     return create_item(db, item_data)
+
+#刪除item
+@router.put("/item/{item_id}", status_code=status.HTTP_200_OK)
+def delete(item_id:str,db: Session = Depends(get_db)):
+    return delete_item(db, item_id)
