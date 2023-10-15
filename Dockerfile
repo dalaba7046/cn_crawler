@@ -2,16 +2,14 @@
 FROM python:3.10.8-slim 
 
 # 
-WORKDIR /code
+ENV PYTHONUNBUFFERED True
 
+ENV APP_HOME /app
+WORKDIR $APP_HOME
 # 
-COPY ./requirements.txt /code/requirements.txt
-
+COPY . ./
 # 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-
-# 
-COPY ./app /code/app
+RUN pip install --no-cache-dir -r requirements.txt
 
 # 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
