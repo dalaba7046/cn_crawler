@@ -5,8 +5,8 @@ Created on Tue Aug  8 11:40:32 2023
 @author: a2793
 """
 from sqlalchemy.orm import Session
-from models.jd_model import Items
-from schemas.jd_schema import ItemCreate
+from app.models.jd_model import Items
+from app.schemas.jd_schema import ItemCreate
 import logging
 from fastapi import HTTPException
 logger = logging.getLogger()

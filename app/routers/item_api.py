@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from config.database import SessionLocal
-from services.jd.item_crud import *
-from schemas import jd_schema
+from app.config.database import SessionLocal
+from app.services.jd.item_crud import *
+from app.schemas import jd_schema
 from typing import Any
 from fastapi.responses import JSONResponse
 

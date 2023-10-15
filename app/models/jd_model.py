@@ -5,7 +5,7 @@ Created on Mon Aug  7 16:26:41 2023
 @author: a2793
 """
 from sqlalchemy import Date,VARCHAR, Column, Integer, String, DateTime, Text, Index
-from config.database import Base
+from app.config.database import Base
 from datetime import datetime
 
 
