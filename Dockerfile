@@ -4,7 +4,7 @@ FROM python:3.10.8-slim
 # 
 ENV PYTHONUNBUFFERED True
 
-ENV APP_HOME /app
+ENV APP_HOME /code
 WORKDIR $APP_HOME
 # 
 COPY . ./

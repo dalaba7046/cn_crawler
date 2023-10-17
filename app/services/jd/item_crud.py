@@ -43,7 +43,7 @@ def create_item(db: Session, item_data: ItemCreate):
 
 def get_item(db: Session, sku_id: str):
     """
-    根據SKU_ID獲取Item紀錄
+    獲取特定SKU_ID。
     """
     item = db.query(Items).filter(Items.SKU_ID == sku_id).first()
     if item is None:
@@ -52,6 +52,9 @@ def get_item(db: Session, sku_id: str):
 
 
 def get_items(db: Session):
+    """
+    回傳所有SKU_ID內容。
+    """
     return db.query(Items).all()
 
 
